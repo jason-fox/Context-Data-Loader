@@ -74,6 +74,7 @@ services:
       - IOTA_HTTP_PORT=${IOTA_SOUTH_PORT}
       - PIG_COUNT=${PIG_COUNT}
       - COW_COUNT=${COW_COUNT}
+      - LACTATING_ANIMAL=cow011,cow016,cow026
 
   # Tutorial acts as a Farm Management Information System
   tutorial:
@@ -155,7 +156,6 @@ networks:
 
 volumes:
   mongo-db1: ~
-  mongo-config: ~
   data-models:
     driver: local
     driver_opts:

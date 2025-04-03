@@ -57,11 +57,26 @@ animals="[";
 for number in 001 002 003 004 005 006 007 008 009 010 011 012 013 014 015 016 017 018 019 020 021 022 023 024 025 026 027 028 029 030 031 032 033 034 035 036 037 038 039 040 041 042 043 044 045 046 047 048 049 050 051 052 053 054 055 056 057 058 059 060 061 062 063 064 065 066 067 068 069 070 071 072 073 074 075 076 077 078 079 080 081 082 083 084 085 086 087 088 089 090 091 092 093 094 095 096 097 098 099 100
 do
 
-  if [ $count -lt ${COW_COUNT:-4} ]; then
+
+
+    heartRate=$(( RANDOM * ( 56 - 50) / 32767 + 50 ))
+
+    lat=$(( RANDOM * ( 300 - 100) / 32767 + 100 ))
+    lng=$(( RANDOM * ( 300 - 100) / 32767 + 100 ))
+
+    if [ $count -eq 4 ]; then
+        heartRate=70
+    fi
+
+    if [ $count -lt ${COW_COUNT:-4} ]; then
       eval cowName="\$cowName$count";
       animals="$animals {\"id\":\"urn:ngsi-ld:Animal:cow$number\", \"type\": \"Animal\",";
       animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"dairy cattle\"},";
       animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$cowName\"},";
+
+      animals="$animals \"heartRate\": { \"type\": \"Property\", \"value\": $heartRate, \"unitCode\": \"5K\"},";
+      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.$lat,52.$lng]}, \"observedAt\": \"2024-02-02T15:00:00.000Z\"},";
+
       if [ $((count%20)) -eq 0 ]; then
        addCondition "male" "bull";
        animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-bull$number-$cowName\" }"
@@ -72,21 +87,21 @@ do
       animals="$animals },"
     fi
 
-    if [ $count -lt ${PIG_COUNT:-4} ]; then
-      eval pigName="\$pigName$count";
-      animals="$animals {\"id\":\"urn:ngsi-ld:Animal:pig$number\", \"type\": \"Animal\",";
-      animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"pig\"},";
-      animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$pigName\"},";
+    # if [ $count -lt ${PIG_COUNT:-4} ]; then
+    #   eval pigName="\$pigName$count";
+    #   animals="$animals {\"id\":\"urn:ngsi-ld:Animal:pig$number\", \"type\": \"Animal\",";
+    #   animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"pig\"},";
+    #   animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$pigName\"},";
      
-      if [ $((count%2)) -eq 0 ]; then
-       addCondition "male" "boar";
-       animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-boar$number-$pigName\" }"
-      else 
-       addCondition "female" "sow";
-       animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-sow$number-$pigName\" }"
-      fi
-      animals="$animals },"
-    fi
+    #   if [ $((count%2)) -eq 0 ]; then
+    #    addCondition "male" "boar";
+    #    animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-boar$number-$pigName\" }"
+    #   else 
+    #    addCondition "female" "sow";
+    #    animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-sow$number-$pigName\" }"
+    #   fi
+    #   animals="$animals },"
+    # fi
 
   count=$((count + 1));
 done
