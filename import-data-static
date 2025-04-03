@@ -425,7 +425,52 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     "id": "urn:ngsi-ld:AgriParcel:003",
     "type": "AgriParcel",
     "name": {
-      "type": "Property", "value": "Pasture"
+      "type": "Property", "value": "North Pasture"
+    },
+     "cropStatus": {
+      "type": "VocabProperty", 
+      "vocab": "maturing"
+    },
+    "cropType": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:AgriCrop:Grass"
+    }
+  },
+  {
+    "id": "urn:ngsi-ld:AgriParcel:004",
+    "type": "AgriParcel",
+    "name": {
+      "type": "Property", "value": "East Pasture"
+    },
+     "cropStatus": {
+      "type": "VocabProperty", 
+      "vocab": "maturing"
+    },
+    "cropType": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:AgriCrop:Grass"
+    }
+  },
+  {
+    "id": "urn:ngsi-ld:AgriParcel:005",
+    "type": "AgriParcel",
+    "name": {
+      "type": "Property", "value": "Water Meadow"
+    },
+     "cropStatus": {
+      "type": "VocabProperty", 
+      "vocab": "maturing"
+    },
+    "cropType": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:AgriCrop:Grass"
+    }
+  },
+  {
+    "id": "urn:ngsi-ld:AgriParcel:006",
+    "type": "AgriParcel",
+    "name": {
+      "type": "Property", "value": "The Paddock"
     },
      "cropStatus": {
       "type": "VocabProperty", 
@@ -436,6 +481,7 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
       "object": "urn:ngsi-ld:AgriCrop:Grass"
     }
   }
+
 ]'
 
 
@@ -512,6 +558,12 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     },
     "siredBy": {
       "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow001"
+    },
+    "locatedAt": {
+        "object": "urn:ngsi-ld:AgriParcel:005"
+    },
+    "ownedBy": {
+        "object": "urn:ngsi-ld:Person:001"
     }
   },
   {
@@ -550,6 +602,12 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     "comment": {
       "type": "Property", "value": "Buttercup was born today.",
       "observedAt": "2024-01-01T15:00:00.000Z"
+    },
+    "locatedAt": {
+        "object": "urn:ngsi-ld:Building:barn002"
+    },
+    "ownedBy": {
+        "object": "urn:ngsi-ld:Person:001"
     }
   },
   {
@@ -577,6 +635,12 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     "reproductiveCondition": {
       "type": "VocabProperty", "vocab": "noStatus",
       "observedAt": "2024-02-02T15:00:00.000Z"
+    },
+    "locatedAt": {
+        "object": "urn:ngsi-ld:Building:barn002"
+    },
+    "ownedBy": {
+        "object": "urn:ngsi-ld:Person:001"
     }
   },
   {

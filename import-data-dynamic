@@ -20,13 +20,17 @@ EOF
 
 function addCondition()
 {
+
   animals="$animals \"sex\": { \"type\": \"VocabProperty\", \"vocab\": \"$1\"},"
   if [ "$1" == "male" ]; then
+    weight=$(( RANDOM * ( 850 - 650) / 32767 + 650 ))
     animals="$animals \"phenologicalCondition\": { \"type\": \"VocabProperty\", \"vocab\": \"maleAdult\"},";
     animals="$animals \"reproductiveCondition\": { \"type\": \"VocabProperty\", \"vocab\": \"active\"},";
+    animals="$animals \"weight\": { \"type\": \"Property\", \"value\": $weight, \"unitCode\": \"KGM\"},";
   else
     animals="$animals \"phenologicalCondition\": { \"type\": \"VocabProperty\", \"vocab\": \"femaleAdult\"},";
-
+    weight=$(( RANDOM * ( 500 - 300) / 32767 + 300 ))
+    animals="$animals \"weight\": { \"type\": \"Property\", \"value\": $weight, \"unitCode\": \"KGM\"},";
     if [ $((count%11)) -eq 0 ]; then
        animals="$animals \"reproductiveCondition\": { \"type\": \"VocabProperty\", \"vocab\": \"inactive\"},";
     elif [ $((count%7)) -eq 0 ]; then
@@ -63,6 +67,13 @@ do
 
     lat=$(( RANDOM * ( 300 - 100) / 32767 + 100 ))
     lng=$(( RANDOM * ( 300 - 100) / 32767 + 100 ))
+    field=$(( RANDOM * ( 7 - 3) / 32767 + 3 ))
+    owner=$(( RANDOM * ( 3 - 1) / 32767 + 1 ))
+
+    year=$(( RANDOM * ( 2022 - 2018) / 32767 + 2018 ))
+    month=$(( RANDOM * ( 10 - 1) / 32767 + 1 ))
+    day=$(( RANDOM * ( 28 - 1) / 32767 + 1 ))
+    padDay=$(echo 00000${day} | tail -c 3)
 
     if [ $count -eq 4 ]; then
         heartRate=70
@@ -76,6 +87,10 @@ do
 
       animals="$animals \"heartRate\": { \"type\": \"Property\", \"value\": $heartRate, \"unitCode\": \"5K\"},";
       animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.$lat,52.$lng]}, \"observedAt\": \"2024-02-02T15:00:00.000Z\"},";
+      animals="$animals \"locatedAt\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:AgriParcel:00$field\"},";
+      animals="$animals \"ownedBy\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:Person:00$owner\"},";
+
+      animals="$animals \"birthdate\": { \"type\": \"Property\", \"value\": \"${year}-0${month}-${padDay}T00:00:00.000Z\"},";
 
       if [ $((count%20)) -eq 0 ]; then
        addCondition "male" "bull";
