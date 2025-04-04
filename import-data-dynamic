@@ -93,10 +93,10 @@ do
       animals="$animals \"birthdate\": { \"type\": \"Property\", \"value\": \"${year}-0${month}-${padDay}T00:00:00.000Z\"},";
 
       if [ $((count%20)) -eq 0 ]; then
-       addCondition "male" "bull";
+       addCondition "Male" "bull";
        animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-bull$number-$cowName\" }"
       else 
-       addCondition "female" "cow";
+       addCondition "Female" "cow";
        animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"F-cow$number-$cowName\" }"
       fi
       animals="$animals },"
@@ -109,10 +109,10 @@ do
     #   animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$pigName\"},";
      
     #   if [ $((count%2)) -eq 0 ]; then
-    #    addCondition "male" "boar";
+    #    addCondition "Male" "boar";
     #    animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-boar$number-$pigName\" }"
     #   else 
-    #    addCondition "female" "sow";
+    #    addCondition "Female" "sow";
     #    animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-sow$number-$pigName\" }"
     #   fi
     #   animals="$animals },"
