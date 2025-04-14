@@ -73,6 +73,10 @@ do
     month=$(( RANDOM * ( 10 - 1) / 32767 + 1 ))
     day=$(( RANDOM * ( 28 - 1) / 32767 + 1 ))
     padDay=$(echo 00000${day} | tail -c 3)
+    feed="Grass"
+    if [ $((count%6)) -eq 0 ]; then
+        feed="Hay"
+    fi
 
     if [ $count -eq 4 ]; then
         heartRate=70
@@ -88,7 +92,7 @@ do
       animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.$lat,52.$lng]}, \"observedAt\": \"2024-02-02T15:00:00.000Z\"},";
       animals="$animals \"locatedAt\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:AgriParcel:00$field\"},";
       animals="$animals \"ownedBy\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:Person:person00$owner\"},";
-
+      animals="$animals \"fedWith\" : {\"type\": \"Property\", \"value\": \"$feed\"},";
       animals="$animals \"birthdate\": { \"type\": \"Property\", \"value\": \"${year}-0${month}-${padDay}T00:00:00.000Z\"},";
 
       if [ $((count%20)) -eq 0 ]; then
