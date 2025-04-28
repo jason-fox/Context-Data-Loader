@@ -1,0 +1,83 @@
+{
+  "name": "tutorials.NGSI-LD",
+  "description": "An Express App for providing context data to FIWARE NGSI-LD Components",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FIWARE/tutorials.NGSI-LD.git"
+  },
+  "bugs": {
+    "url": "https://github.com/FIWARE/tutorials.NGSI-LD/issues"
+  },
+  "homepage": "https://ngsi-ld-tutorials.rtfd.io/",
+  "author": "FIWARE Foundation e.V.",
+  "keywords": [
+    "node",
+    "fiware",
+    "tutorial",
+    "ngsi"
+  ],
+  "version": "0.0.1",
+  "private": true,
+  "license": "MIT",
+  "engines": {
+    "node": ">=16"
+  },
+  "dependencies": {
+    "body-parser": "^1.19.2",
+    "connect-flash": "^0.1.1",
+    "connect-mongo": "^4.6.0",
+    "cookie-parser": "~1.4.6",
+    "debug": "~4.3.3",
+    "did-jwt": "^6.11.0",
+    "did-jwt-vc": "^3.1.0",
+    "did-resolver": "^4.0.1",
+    "elliptic": "^6.5.4",
+    "web-did-resolver": "^2.0.21",
+    "express": "~4.17.3",
+    "express-session": "^1.17.2",
+    "http-errors": "^2.0.0",
+    "jsonld": "^8.3.3",
+    "lodash": "^4.17.21",
+    "moment": "^2.29.1",
+    "mongoose": "^6.2.2",
+    "morgan": "^1.10.0",
+    "mqtt": "^4.3.6",
+    "node-cache": "^5.1.2",
+    "parse-links": "^0.1.0",
+    "pug": "3.0.2",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.6",
+    "socket.io": "^4.7.5",
+    "twitter": "^1.7.1",
+    "xml-parser": "^1.2.1",
+    "xml2js": "^0.4.23"
+  },
+  "devDependencies": {
+    "ajv": "^8.10.0",
+    "eslint": "^8.9.0",
+    "eslint-config-tamia": "^7.2.7",
+    "eslint-plugin-prettier": "^4.0.0",
+    "memfs": "3.4.1",
+    "prettier": "^2.5.1",
+    "lint-staged": "^12.3.4"
+  },
+  "scripts": {
+    "pre-commit": "lint-staged",
+    "start": "node ./bin/www",
+    "lint": "eslint . --cache --fix",
+    "prettier": "prettier --parser flow --config ./.prettierrc.json --write **/**/*.js  **/*.js *.js",
+    "test": "eslint ."
+  },
+  "lint-staged": {
+    "*.js": [
+      "prettier --config .prettierrc.json --write",
+      "eslint --fix"
+    ],
+    "*.md": [
+      "prettier --parser markdown --tab-width 4 --print-width 120 --write --prose-wrap always"
+    ],
+    "*.yml": [
+      "prettier --no-config --tab-width 4 --print-width 120 --write"
+    ]
+  }
+}
