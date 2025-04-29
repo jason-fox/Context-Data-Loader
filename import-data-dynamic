@@ -89,7 +89,7 @@ do
       animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$cowName\"},";
 
       animals="$animals \"heartRate\": { \"type\": \"Property\", \"value\": $heartRate, \"unitCode\": \"5K\"},";
-      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.$lat,52.$lng]}, \"observedAt\": \"2024-02-02T15:00:00.000Z\"},";
+      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.35$lat,52.51$lng]}, \"observedAt\": \"2024-02-02T15:00:00.000Z\"},";
       animals="$animals \"locatedAt\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:AgriParcel:00$field\"},";
       animals="$animals \"ownedBy\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:Person:person00$owner\"},";
       animals="$animals \"fedWith\" : {\"type\": \"Property\", \"value\": \"$feed\"},";
