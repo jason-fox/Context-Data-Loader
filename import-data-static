@@ -404,6 +404,21 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
       "type": "Property",  
       "value": 15.4, "unitCode": "CEL",
       "observedAt": "2024-01-01T15:00:00.000Z"
+    },
+    "prediction": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherForecast:001",
+      "objectType": "WeatherForecast"
+    },
+    "observation": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherObserved:001",
+      "objectType": "WeatherObserved",
+      "providedBy":  {
+          "type": "Relationship", 
+          "object": "urn:ngsi-ld:Device:weatherStation001",
+          "objectType": "Device"
+      }
     }
   },
   {
@@ -419,6 +434,21 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     "cropType": {
       "type": "Relationship", 
       "object": "urn:ngsi-ld:AgriCrop:Corn"
+    },
+    "prediction": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherForecast:001",
+      "objectType": "WeatherForecast"
+    },
+    "observation": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherObserved:002",
+      "objectType": "WeatherObserved",
+      "providedBy":  {
+          "type": "Relationship", 
+          "object": "urn:ngsi-ld:Device:weatherStation002",
+          "objectType": "Device"
+      }
     }
   },
   {
@@ -434,6 +464,21 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     "cropType": {
       "type": "Relationship", 
       "object": "urn:ngsi-ld:AgriCrop:Grass"
+    },
+    "prediction": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherForecast:002",
+      "objectType": "WeatherForecast"
+    },
+    "observation": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherObserved:003",
+      "objectType": "WeatherObserved",
+      "providedBy":  {
+          "type": "Relationship", 
+          "object": "urn:ngsi-ld:Device:weatherStation003",
+          "objectType": "Device"
+      }
     }
   },
   {
@@ -464,6 +509,21 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     "cropType": {
       "type": "Relationship", 
       "object": "urn:ngsi-ld:AgriCrop:Grass"
+    },
+    "prediction": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherForecast:002",
+      "objectType": "WeatherForecast"
+    },
+    "observation": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherObserved:004",
+      "objectType": "WeatherObserved",
+      "providedBy":  {
+          "type": "Relationship", 
+          "object": "urn:ngsi-ld:Device:weatherStation004",
+          "objectType": "Device"
+      }
     }
   },
   {
@@ -479,11 +539,19 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     "cropType": {
       "type": "Relationship", 
       "object": "urn:ngsi-ld:AgriCrop:Grass"
+    },
+    "prediction": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherForecast:002",
+      "objectType": "WeatherForecast"
+    },
+    "observation": {
+      "type": "Relationship", 
+      "object": "urn:ngsi-ld:WeatherObserved:005",
+      "objectType": "WeatherObserved"
     }
   }
-
-]'
-
+]';
 
 
 echo -e "\n\nCreating Animals for the vet ...\n"
@@ -520,10 +588,10 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
       "type": "Property", "value": 50, "unitCode": "KGM"
     },
     "calvedBy": {
-      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow002"
+      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow002", "objectType": "Animal"
     },
     "siredBy": {
-      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow001"
+      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow001", "objectType": "Animal"
     }
   },
   {
@@ -554,15 +622,17 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
       "type": "Property", "value": 30, "unitCode": "KGM"
     },
     "calvedBy": {
-      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow004"
+      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow004", "objectType": "Animal"
     },
     "siredBy": {
-      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow001"
+      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow001", "objectType": "Animal"
     },
     "locatedAt": {
+        "type": "Relationship", 
         "object": "urn:ngsi-ld:AgriParcel:005"
     },
     "ownedBy": {
+        "type": "Relationship", 
         "object": "urn:ngsi-ld:Person:001"
     }
   },
@@ -591,10 +661,10 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
       "type": "Property", "value": "F-cow103-Buttercup"
     },
     "calvedBy": {
-      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow006"
+      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow006", "objectType": "Animal"
     },
     "siredBy": {
-      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow001"
+      "type": "Relationship", "object": "urn:ngsi-ld:Animal:cow001", "objectType": "Animal"
     },
     "weight": {
       "type": "Property", "value": 20, "unitCode": "KGM"
@@ -604,9 +674,11 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
       "observedAt": "2024-01-01T15:00:00.000Z"
     },
     "locatedAt": {
+        "type": "Relationship", 
         "object": "urn:ngsi-ld:Building:barn002"
     },
     "ownedBy": {
+        "type": "Relationship", 
         "object": "urn:ngsi-ld:Person:001"
     }
   },
@@ -637,9 +709,11 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
       "observedAt": "2024-02-02T15:00:00.000Z"
     },
     "locatedAt": {
+        "type": "Relationship", 
         "object": "urn:ngsi-ld:Building:barn002"
     },
     "ownedBy": {
+        "type": "Relationship", 
         "object": "urn:ngsi-ld:Person:001"
     }
   },
@@ -690,6 +764,383 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     }
   }
 ]'
+
+
+echo -e "\n\nCreating weather observations readings ... \n"
+curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert?options=update' \
+-H 'Content-Type: application/json' \
+-H 'Link: <'"${TUTORIAL_DATA_MODELS_CONTEXT}"'>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+-H 'Accept: application/ld+json' \
+-d '[
+{
+  "id": "urn:ngsi-ld:WeatherObserved:001",
+  "type": "WeatherObserved",
+  "atmosphericPressure": {
+    "type": "Property", "unitCode": "PAL", "value": 938.9
+  },
+  "dataProvider": {
+    "type": "Property", "value": "AgriWeather"
+  },
+  "dateObserved": {
+    "type": "Property", "value": "2025-10-30T07:00:00.00Z"
+  },
+  "illuminance": {
+    "type": "Property", "unitCode": "CDL", "value": 1000
+  },
+  "location": {
+    "type": "GeoProperty",
+    "value": {
+      "type": "Point",
+      "coordinates": [13.3505, 52.5144]
+    }
+  },
+  "precipitation": {
+    "type": "Property", "unitCode": "MMT", "value": 0
+  },
+  "pressureTendency": {
+    "type": "Property", "value": "rising"
+  },
+  "relativeHumidity": {
+    "type": "Property", "unitCode": "C68", "value": 0.50
+  },
+  "streamGauge": {
+    "type": "Property", "unitCode": "CMT", "value": 50
+  },
+  "temperature": {
+    "type": "Property", "unitCode": "CEL", "value": 16
+  },
+  "uVIndexMax": {
+    "type": "Property",  "value": 1.0
+  },
+  "windDirection": {
+    "type": "Property", "unitCode": "DD", "value": 135
+  },
+  "windSpeed": {
+    "type": "Property", "unitCode": "MTS", "value": 2
+  }
+},
+{
+  "id": "urn:ngsi-ld:WeatherObserved:002",
+  "type": "WeatherObserved",
+  "atmosphericPressure": {
+    "type": "Property", "unitCode": "PAL", "value": 969.9
+  },
+  "dataProvider": {
+    "type": "Property", "value": "AgriWeather"
+  },
+  "dateObserved": {
+    "type": "Property", "value": "2025-10-30T07:00:00.00Z"
+  },
+  "illuminance": {
+    "type": "Property", "unitCode": "CDL", "value": 1000
+  },
+  "location": {
+    "type": "GeoProperty",
+    "value": {
+      "type": "Point",
+      "coordinates": [13.3510, 52.5103]
+    }
+  },
+  "precipitation": {
+    "type": "Property", "unitCode": "MMT", "value": 0.1
+  },
+  "pressureTendency": {
+    "type": "Property", "value": "rising"
+  },
+  "relativeHumidity": {
+    "type": "Property", "unitCode": "C68", "value": 0.50
+  },
+  "streamGauge": {
+    "type": "Property", "unitCode": "CMT", "value": 50
+  },
+  "temperature": {
+    "type": "Property", "unitCode": "CEL", "value": 15.3
+  },
+  "uVIndexMax": {
+    "type": "Property",  "value": 1.0
+  },
+  "windDirection": {
+    "type": "Property", "unitCode": "DD", "value": 135
+  },
+  "windSpeed": {
+    "type": "Property", "unitCode": "MTS", "value": 2
+  }
+},
+{
+  "id": "urn:ngsi-ld:WeatherObserved:003",
+  "type": "WeatherObserved",
+  "atmosphericPressure": {
+    "type": "Property", "unitCode": "PAL", "value": 957.9
+  },
+  "dataProvider": {
+    "type": "Property", "value": "AgriWeather"
+  },
+  "dateObserved": {
+    "type": "Property", "value": "2025-10-30T07:00:00.00Z"
+  },
+  "illuminance": {
+    "type": "Property", "unitCode": "CDL", "value": 1000
+  },
+  "location": {
+    "type": "GeoProperty",
+    "value": {
+      "type": "Point",
+      "coordinates": [13.3698, 52.5163]
+    }
+  },
+  "precipitation": {
+    "type": "Property", "unitCode": "MMT", "value": 0
+  },
+  "pressureTendency": {
+    "type": "Property", "value": "falling"
+  },
+  "relativeHumidity": {
+    "type": "Property", "unitCode": "C68", "value": 0.50
+  },
+  "streamGauge": {
+    "type": "Property", "unitCode": "CMT", "value": 50
+  },
+  "temperature": {
+    "type": "Property", "unitCode": "CEL", "value": 15.5
+  },
+  "uVIndexMax": {
+    "type": "Property",  "value": 1.0
+  },
+  "windDirection": {
+    "type": "Property", "unitCode": "DD", "value": 135
+  },
+  "windSpeed": {
+    "type": "Property", "unitCode": "MTS", "value": 2
+  }
+},
+{
+  "id": "urn:ngsi-ld:WeatherObserved:004",
+  "type": "WeatherObserved",
+  "atmosphericPressure": {
+    "type": "Property", "unitCode": "PAL", "value": 938.9
+  },
+  "dataProvider": {
+    "type": "Property", "value": "AgriWeather"
+  },
+  "dateObserved": {
+    "type": "Property", "value": "2025-10-30T07:00:00.00Z"
+  },
+  "illuminance": {
+    "type": "Property", "unitCode": "CDL", "value": 1000
+  },
+  "location": {
+    "type": "GeoProperty",
+    "value": {
+      "type": "Point",
+      "coordinates": [13.3898, 52.5223]
+    }
+  },
+  "precipitation": {
+    "type": "Property", "unitCode": "MMT", "value": 0
+  },
+  "pressureTendency": {
+    "type": "Property", "value": "steady"
+  },
+  "relativeHumidity": {
+    "type": "Property", "unitCode": "C68", "value": 0.50
+  },
+  "streamGauge": {
+    "type": "Property", "unitCode": "CMT", "value": 50
+  },
+  "temperature": {
+    "type": "Property", "unitCode": "CEL", "value": 15.6
+  },
+  "uVIndexMax": {
+    "type": "Property",  "value": 1.0
+  },
+  "windDirection": {
+    "type": "Property", "unitCode": "DD", "value": 135
+  },
+  "windSpeed": {
+    "type": "Property", "unitCode": "MTS", "value": 7
+  }
+},
+{
+  "id": "urn:ngsi-ld:WeatherObserved:005",
+  "type": "WeatherObserved",
+  "atmosphericPressure": {
+    "type": "Property", "unitCode": "PAL", "value": 1001
+  },
+  "dataProvider": {
+    "type": "Property", "value": "AgriWeather"
+  },
+  "dateObserved": {
+    "type": "Property", "value": "2025-10-30T07:00:00.00Z"
+  },
+  "illuminance": {
+    "type": "Property", "unitCode": "CDL", "value": 1000
+  },
+  "location": {
+    "type": "GeoProperty",
+    "value": {
+      "type": "Point",
+      "coordinates": [13.3510, 52.5206]
+    }
+  },
+  "precipitation": {
+    "type": "Property", "unitCode": "MMT", "value": 0
+  },
+  "pressureTendency": {
+    "type": "Property", "value": "steady"
+  },
+  "relativeHumidity": {
+    "type": "Property", "unitCode": "C68", "value": 0.50
+  },
+  "streamGauge": {
+    "type": "Property", "unitCode": "CMT", "value": 50
+  },
+  "temperature": {
+    "type": "Property", "unitCode": "CEL", "value": 16.2
+  },
+  "uVIndexMax": {
+    "type": "Property",  "value": 1.0
+  },
+  "windDirection": {
+    "type": "Property", "unitCode": "DD", "value": 135
+  },
+  "windSpeed": {
+    "type": "Property", "unitCode": "MTS", "value": 2
+  }
+},
+
+{  
+  "id": "urn:ngsi-ld:WeatherForecast:001",  
+  "type": "WeatherForecast",  
+  "dataProvider": {  
+    "type": "Property", "value": "AgriWeather"
+  },  
+  "dateIssued": {  
+    "type": "Property", "value": "2016-12-01T10:40:01.00Z"  
+  },  
+  "dateRetrieved": {  
+    "type": "Property", "value": "2016-12-01T12:57:24.00Z"   
+  },  
+  "dayMaximum": {  
+    "type": "Property", 
+    "value": {  
+      "feelsLikeTemperature": 15,  
+      "temperature": 15,  
+      "relativeHumidity": 0.9  
+    }  
+  },  
+  "dayMinimum": {  
+    "type": "Property", 
+    "value": {  
+      "feelsLikeTemperature": 11,  
+      "temperature": 11,  
+      "relativeHumidity": 0.7  
+    }  
+  },  
+  "feelsLikeTemperature": {  
+    "type": "Property", "value": 12 , "unitCode": "CEL"
+  },  
+  "precipitationProbability": {  
+    "type": "Property", "value": 0.15, "unitCode": "C68"
+  },  
+  "relativeHumidity": {  
+    "type": "Property", "value": 0.85, "unitCode": "C68"
+  },  
+  "source": {  
+    "type": "Property", "value": "http://www.agriweather.example.com"  
+  },  
+  "temperature": {  
+    "type": "Property", "value": 12, "unitCode": "CEL"
+  },  
+  "uVIndexMax": {  
+    "type": "Property", "value": 1.0  
+  },  
+  "validFrom": {  
+    "type": "Property",  
+    "value": "2016-12-01T17:00:00.00Z"  
+  },  
+  "validTo": {  
+    "type": "Property",  
+    "value": "2016-12-01T23:00:00.00Z"  
+  },  
+  "validity": {  
+    "type": "Property",  
+    "value": "2016-12-01T18:00:00+01:00/2016-12-02T00:00:00+01:00"  
+  },  
+  "weatherType": {  
+    "type": "Property",  
+    "value": "overcast"  
+  },  
+  "windSpeed": {  
+    "type": "Property",  "unitCode": "MTS", "value": 0.2  
+  } 
+},
+{  
+  "id": "urn:ngsi-ld:WeatherForecast:002",  
+  "type": "WeatherForecast",  
+  "dataProvider": {  
+    "type": "Property", "value": "AgriWeatherPlus"
+  },  
+  "dateIssued": {  
+    "type": "Property", "value": "2016-12-01T10:40:01.00Z"  
+  },  
+  "dateRetrieved": {  
+    "type": "Property", "value": "2016-12-01T12:57:24.00Z"   
+  },  
+  "dayMaximum": {  
+    "type": "Property", 
+    "value": {  
+      "feelsLikeTemperature": 16,  
+      "temperature": 16,  
+      "relativeHumidity": 0.9  
+    }  
+  },  
+  "dayMinimum": {  
+    "type": "Property", 
+    "value": {  
+      "feelsLikeTemperature": 11,  
+      "temperature": 11,  
+      "relativeHumidity": 0.7  
+    }  
+  },  
+  "feelsLikeTemperature": {  
+    "type": "Property", "value": 12 , "unitCode": "CEL"
+  },  
+  "precipitationProbability": {  
+    "type": "Property", "value": 0.15, "unitCode": "C68"
+  },  
+  "relativeHumidity": {  
+    "type": "Property", "value": 0.85, "unitCode": "C68"
+  },  
+  "source": {  
+    "type": "Property", "value": "http://www.agriweather.example.com"  
+  },  
+  "temperature": {  
+    "type": "Property", "value": 12, "unitCode": "CEL"
+  },  
+  "uVIndexMax": {  
+    "type": "Property", "value": 1.0  
+  },  
+  "validFrom": {  
+    "type": "Property",  
+    "value": "2016-12-01T17:00:00.00Z"  
+  },  
+  "validTo": {  
+    "type": "Property",  
+    "value": "2016-12-01T23:00:00.00Z"  
+  },  
+  "validity": {  
+    "type": "Property",  
+    "value": "2016-12-01T18:00:00+01:00/2016-12-02T00:00:00+01:00"  
+  },  
+  "weatherType": {  
+    "type": "Property",  
+    "value": "overcast"  
+  },  
+  "windSpeed": {  
+    "type": "Property",  "unitCode": "MTS", "value": 0.2  
+  } 
+} 
+]';
 
 
 #

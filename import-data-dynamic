@@ -134,6 +134,7 @@ curl -s -o /dev/null -X POST --location 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1
 -H 'Content-Type: application/json' \
 -H 'Link: <'"${TUTORIAL_DATA_MODELS_CONTEXT}"'>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 -H 'Accept: application/ld+json' \
+-H 'NGSILD-Tenant: openiot' \
 -d "$(generate_post_data)"
 
 

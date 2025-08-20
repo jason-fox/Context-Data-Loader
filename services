@@ -140,15 +140,15 @@ loadData () {
 		--entrypoint /bin/ash quay.io/curl/curl:${CURL_VERSION} /import-data-static
 
 
-	waitForIoTAgent
-	docker run --rm -v $(pwd)/provision-devices:/provision-devices \
-		--network fiware_default \
-		-e CONTEXT_BROKER=${CONTEXT_BROKER} \
-		-e TUTORIAL_DATA_MODELS_CONTEXT="http://context/user-context.jsonld" \
-		--entrypoint /bin/ash quay.io/curl/curl:${CURL_VERSION} /provision-devices
-	docker run --rm -v $(pwd)/link-devices:/link-devices \
-		--network fiware_default \
-		--entrypoint /bin/ash quay.io/curl/curl:${CURL_VERSION} /link-devices
+	#waitForIoTAgent
+	#docker run --rm -v $(pwd)/provision-devices:/provision-devices \
+	#	--network fiware_default \
+	#	-e CONTEXT_BROKER=${CONTEXT_BROKER} \
+	#	-e TUTORIAL_DATA_MODELS_CONTEXT="http://context/user-context.jsonld" \
+	#	--entrypoint /bin/ash quay.io/curl/curl:${CURL_VERSION} /provision-devices
+	#docker run --rm -v $(pwd)/link-devices:/link-devices \
+	#	--network fiware_default \
+	#	--entrypoint /bin/ash quay.io/curl/curl:${CURL_VERSION} /link-devices
 	echo ""
 }
 
