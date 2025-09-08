@@ -9,7 +9,7 @@ set -e
 echo -e "⏳ Loading context data in \033[1mNGSI-LD\033[0m format"
 echo -e "    - all entity data models are defined referencing the" 
 echo -e "      \033[1m"${TUTORIAL_DATA_MODELS_CONTEXT}"\033[0m JSON-LD context"
-echo -e "\nCreating ${COW_COUNT:-4} cows and ${COW_COUNT:-4} pigs"
+echo -e "\nCreating ${COW_COUNT:-4} cows and ${PIG_COUNT:-4} pigs"
 
 generate_post_data()
 {
@@ -64,12 +64,16 @@ do
 
 
     heartRate=$(( RANDOM * ( 56 - 50) / 32767 + 50 ))
+    thisYear=$(date +%Y) 
+    lastYear=$(($thisYear - 1))
+    sixYears=$(($thisYear - 6))
+    timestamp=$(date +%Y-%m-%d)
 
     lat=$(( RANDOM * ( 300 - 100) / 32767 + 100 ))
     lng=$(( RANDOM * ( 300 - 100) / 32767 + 100 ))
     field=$(( RANDOM * ( 7 - 3) / 32767 + 3 ))
     owner=$(( RANDOM * ( 3 - 1) / 32767 + 1 ))
-    year=$(( RANDOM * ( 2022 - 2018) / 32767 + 2018 ))
+    year=$(( RANDOM * 6 / 32767 + sixYears ))
     month=$(( RANDOM * ( 10 - 1) / 32767 + 1 ))
     day=$(( RANDOM * ( 28 - 1) / 32767 + 1 ))
     padDay=$(echo 00000${day} | tail -c 3)
@@ -82,14 +86,53 @@ do
         heartRate=70
     fi
 
+
+    case "${field}" in
+    3)
+        fieldLng="13.348"
+        fieldLat="52.511"
+
+        if [ $((count%2)) -eq 0 ]; then
+             fieldLng="13.349"
+        fi
+        ;;
+    4)
+        fieldLng="13.352"
+        fieldLat="52.513"
+        if [ $((count%2)) -eq 0 ]; then
+             fieldLng="13.353"
+        fi
+        if [ $((count%3)) -eq 0 ]; then
+             fieldLng="13.354"
+        fi
+        ;;
+    5)
+        fieldLng="13.354"
+        fieldLat="52.515"
+        if [ $((count%2)) -eq 0 ]; then
+             fieldLng="13.355"
+        fi
+        ;;
+    6)
+        fieldLng="13.348"
+        fieldLat="52.518"
+        if [ $((count%2)) -eq 0 ]; then
+             fieldLat="52.517"
+        fi
+        if [ $((count%3)) -eq 0 ]; then
+             fieldLat="52.516"
+        fi
+        ;;
+    esac
+
+
     if [ $count -lt ${COW_COUNT:-4} ]; then
       eval cowName="\$cowName$count";
       animals="$animals {\"id\":\"urn:ngsi-ld:Animal:cow$number\", \"type\": \"Animal\",";
       animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"dairy cattle\"},";
       animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$cowName\"},";
-
       animals="$animals \"heartRate\": { \"type\": \"Property\", \"value\": $heartRate, \"unitCode\": \"5K\"},";
-      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.35$lat,52.51$lng]}, \"observedAt\": \"2024-02-02T15:00:00.000Z\"},";
+      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [$fieldLng${lng: -2}, $fieldLat${lat: -2}]}, \"observedAt\": \"${timestamp}T15:00:00.000Z\"},";
       animals="$animals \"locatedAt\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:AgriParcel:00$field\"},";
       animals="$animals \"ownedBy\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:Person:person00$owner\"},";
       animals="$animals \"fedWith\" : {\"type\": \"Property\", \"value\": \"$feed\"},";
@@ -105,29 +148,29 @@ do
       animals="$animals },"
     fi
 
-    # if [ $count -lt ${PIG_COUNT:-4} ]; then
-    #   eval pigName="\$pigName$count";
-    #   animals="$animals {\"id\":\"urn:ngsi-ld:Animal:pig$number\", \"type\": \"Animal\",";
-    #   animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"pig\"},";
-    #   animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$pigName\"},";
+    if [ $count -lt ${PIG_COUNT:-4} ]; then
+      eval pigName="\$pigName$count";
+      animals="$animals {\"id\":\"urn:ngsi-ld:Animal:pig$number\", \"type\": \"Animal\",";
+      animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"pig\"},";
+      animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$pigName\"},";
+      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.350${lng: -2}, 52.518${lat: -2}]}, \"observedAt\": \"${timestamp}T15:00:00.000Z\"},";
+      
      
-    #   if [ $((count%2)) -eq 0 ]; then
-    #    addCondition "Male" "boar";
-    #    animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-boar$number-$pigName\" }"
-    #   else 
-    #    addCondition "Female" "sow";
-    #    animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-sow$number-$pigName\" }"
-    #   fi
-    #   animals="$animals },"
-    # fi
+      if [ $((count%2)) -eq 0 ]; then
+       addCondition "Male" "boar";
+       animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-boar$number-$pigName\" }"
+      else 
+       addCondition "Female" "sow";
+       animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-sow$number-$pigName\" }"
+      fi
+
+      animals="$animals },"
+    fi
 
   count=$((count + 1));
 done
 
 animals="${animals::-1} ]"
-
-#echo $animals;
-#exit 0;
 
 
 curl -s -o /dev/null -X POST --location 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert?options=update' \
@@ -138,12 +181,11 @@ curl -s -o /dev/null -X POST --location 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1
 -d "$(generate_post_data)"
 
 
-
 echo -e "Registering Devices as data sources.\n"
 
 
 curl -s -o /dev/null -X POST --location 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/csourceRegistrations/' \
--H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json' \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 -H 'Content-Type: application/json' \
 -d '{
     "type": "ContextSourceRegistration",
