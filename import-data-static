@@ -49,7 +49,7 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     },
     "locatedAt": {
       "type": "Relationship", 
-      "object": "urn:ngsi-ld:AgriParcel:003"
+      "object": "urn:ngsi-ld:AgriParcel:004"
     }
   },
   {
@@ -629,7 +629,7 @@ curl -s -X POST 'http://'"${CONTEXT_BROKER}"'/ngsi-ld/v1/entityOperations/upsert
     },
     "locatedAt": {
         "type": "Relationship", 
-        "object": "urn:ngsi-ld:AgriParcel:005"
+        "object": "urn:ngsi-ld:AgriParcel:006"
     },
     "ownedBy": {
         "type": "Relationship", 

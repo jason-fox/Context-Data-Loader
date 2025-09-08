@@ -82,11 +82,8 @@ do
         feed="Hay"
     fi
 
-    if [ $count -eq 4 ]; then
-        heartRate=70
-    fi
-
-
+   
+    # Disperse the animals across the fields.
     case "${field}" in
     3)
         fieldLng="13.348"
@@ -125,6 +122,37 @@ do
         ;;
     esac
 
+    if [ $count -lt ${PIG_COUNT:-4} ]; then
+      eval pigName="\$pigName$count";
+      animals="$animals {\"id\":\"urn:ngsi-ld:Animal:pig$number\", \"type\": \"Animal\",";
+      animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"pig\"},";
+      animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$pigName\"},";
+      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.350${lng: -2}, 52.518${lat: -2}]}, \"observedAt\": \"${timestamp}T15:00:00.000Z\"},";
+      
+     
+      if [ $((count%2)) -eq 0 ]; then
+       addCondition "Male" "boar";
+       animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-boar$number-$pigName\" }"
+      else 
+       addCondition "Female" "sow";
+       animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-sow$number-$pigName\" }"
+      fi
+
+      animals="$animals },"
+    fi
+
+
+    # Place Twilight in the barn
+    if [ $count -eq 5 ]; then
+        fieldLng="13.3698"
+        fieldLat="52.5163"
+    fi
+
+    # Set Sun's heart rate as too high
+    if [ $count -eq 4 ]; then
+        heartRate=70
+    fi
+
 
     if [ $count -lt ${COW_COUNT:-4} ]; then
       eval cowName="\$cowName$count";
@@ -146,26 +174,7 @@ do
        animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"F-cow$number-$cowName\" }"
       fi
       animals="$animals },"
-    fi
-
-    if [ $count -lt ${PIG_COUNT:-4} ]; then
-      eval pigName="\$pigName$count";
-      animals="$animals {\"id\":\"urn:ngsi-ld:Animal:pig$number\", \"type\": \"Animal\",";
-      animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"pig\"},";
-      animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$pigName\"},";
-      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.350${lng: -2}, 52.518${lat: -2}]}, \"observedAt\": \"${timestamp}T15:00:00.000Z\"},";
-      
-     
-      if [ $((count%2)) -eq 0 ]; then
-       addCondition "Male" "boar";
-       animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-boar$number-$pigName\" }"
-      else 
-       addCondition "Female" "sow";
-       animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-sow$number-$pigName\" }"
-      fi
-
-      animals="$animals },"
-    fi
+    fi    
 
   count=$((count + 1));
 done
