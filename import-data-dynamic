@@ -31,6 +31,14 @@ function addCondition()
     max=400
     min=200
   fi
+  if [ "$3" == "pig"  ]; then
+    max=350
+    min=200
+  fi
+  if [ $((cowHeartRate)) -gt 60 ]; then
+    max=350
+    min=200
+  fi
   
 
   weight=$((RANDOM * ($((max)) - $((min))) / 32767 + $((min))))
@@ -75,7 +83,8 @@ for number in 001 002 003 004 005 006 007 008 009 010 011 012 013 014 015 016 01
 do
 
 
-    heartRate=$(( RANDOM * ( 56 - 50) / 32767 + 50 ))
+    cowHeartRate=$(( RANDOM * ( 56 - 50) / 32767 + 50 ))
+    pigHeartRate=$(( RANDOM * ( 66 - 60) / 32767 + 60 ))
     thisYear=$(date +%Y) 
     lastYear=$(($thisYear - 1))
     eightYears=$(($thisYear - 8))
@@ -137,22 +146,29 @@ do
 
     if [ $count -lt ${PIG_COUNT:-4} ]; then
       eval pigName="\$pigName$count";
+      pigLng="13.350"${lng: -2} 
+      pigLat="52.518"${lat: -2}
       animals="$animals {\"id\":\"urn:ngsi-ld:Animal:pig$number\", \"type\": \"Animal\",";
       animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"pig\"},";
       animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$pigName\"},";
-      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [13.350${lng: -2}, 52.518${lat: -2}]}, \"observedAt\": \"${timestamp}T15:00:00.000Z\"},";
+      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [$pigLng, $pigLat]}, \"observedAt\": \"${timestamp}T15:00:00.000Z\"},";
+      animals="$animals \"heartRate\": { \"type\": \"Property\", \"value\": $pigHeartRate, \"unitCode\": \"5K\"},";
       
      
       if [ $((count%2)) -eq 0 ]; then
-       addCondition "Male" "boar" $age;
+       addCondition "Male" "boar" "pig";
        animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-boar$number-$pigName\" }"
       else 
-       addCondition "Female" "sow" $age;
+       addCondition "Female" "sow" "pig";
        animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-sow$number-$pigName\" }"
       fi
 
       animals="$animals },"
     fi
+
+    # if [ $count -lt ${PIG_COUNT:-4} ]; then
+    #   echo -e "urn:ngsi-ld:Animal:pig$number, $pigHeartRate, $weight, [$pigLng, $pigLat]"
+    # fi
 
 
     # Place Twilight in the barn
@@ -163,32 +179,37 @@ do
 
     # Set Sun's heart rate as too high
     if [ $count -eq 4 ]; then
-        heartRate=70
+        cowHeartRate=70
     fi
 
 
     if [ $count -lt ${COW_COUNT:-4} ]; then
       eval cowName="\$cowName$count";
+      cowLng=$fieldLng${lng: -2}
+      cowLat=$fieldLat${lat: -2}
       animals="$animals {\"id\":\"urn:ngsi-ld:Animal:cow$number\", \"type\": \"Animal\",";
       animals="$animals \"species\": { \"type\": \"Property\", \"value\": \"dairy cattle\"},";
       animals="$animals \"name\": { \"type\": \"Property\", \"value\": \"$cowName\"},";
-      animals="$animals \"heartRate\": { \"type\": \"Property\", \"value\": $heartRate, \"unitCode\": \"5K\"},";
-      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [$fieldLng${lng: -2}, $fieldLat${lat: -2}]}, \"observedAt\": \"${timestamp}T15:00:00.000Z\"},";
+      animals="$animals \"heartRate\": { \"type\": \"Property\", \"value\": $cowHeartRate, \"unitCode\": \"5K\"},";
+      animals="$animals \"location\": {\"type\": \"GeoProperty\",\"value\": {\"type\": \"Point\",\"coordinates\": [${cowLng:0:8}, ${cowLat:0:8}]}, \"observedAt\": \"${timestamp}T15:00:00.000Z\"},";
       animals="$animals \"locatedAt\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:AgriParcel:00$field\"},";
       animals="$animals \"ownedBy\": { \"type\": \"Relationship\", \"object\": \"urn:ngsi-ld:Person:person00$owner\"},";
       animals="$animals \"fedWith\" : {\"type\": \"Property\", \"value\": \"$feed\"},";
       animals="$animals \"birthdate\": { \"type\": \"Property\", \"value\": \"${year}-0${month}-${padDay}T00:00:00.000Z\"},";
 
       if [ $((count%20)) -eq 0 ]; then
-       addCondition "Male" "bull" $age;
+       addCondition "Male" "bull" "cow";
        animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"M-bull$number-$cowName\" }"
       else 
-       addCondition "Female" "cow" $age;
+       addCondition "Female" "cow" "cow";
        animals="$animals \"legalId\": { \"type\": \"Property\", \"value\": \"F-cow$number-$cowName\" }"
       fi
       animals="$animals },"
-    fi    
+    fi
 
+    # if [ $count -lt ${COW_COUNT:-4} ]; then
+    #   echo -e "urn:ngsi-ld:Animal:cow$number, $cowHeartRate, $weight, [${cowLng:0:8}, ${cowLat:0:8}]"
+    # fi
   count=$((count + 1));
 done
 
