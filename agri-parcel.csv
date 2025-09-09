@@ -1,0 +1,7 @@
+id,type,name,cropStatus,cropType,observation,prediction,temperature
+urn:ngsi-ld:AgriParcel:001,AgriParcel,Wheatfield,seeded,urn:ngsi-ld:AgriCrop:BuckWheat,urn:ngsi-ld:WeatherObserved:001,urn:ngsi-ld:WeatherForecast:001,15.4
+urn:ngsi-ld:AgriParcel:002,AgriParcel,Cornfield,growing,urn:ngsi-ld:AgriCrop:Corn,urn:ngsi-ld:WeatherObserved:002,urn:ngsi-ld:WeatherForecast:001,
+urn:ngsi-ld:AgriParcel:005,AgriParcel,Water Meadow,maturing,urn:ngsi-ld:AgriCrop:Grass,urn:ngsi-ld:WeatherObserved:004,urn:ngsi-ld:WeatherForecast:002,
+urn:ngsi-ld:AgriParcel:006,AgriParcel,The Paddock,maturing,urn:ngsi-ld:AgriCrop:Grass,urn:ngsi-ld:WeatherObserved:005,urn:ngsi-ld:WeatherForecast:002,
+urn:ngsi-ld:AgriParcel:003,AgriParcel,North Pasture,maturing,urn:ngsi-ld:AgriCrop:Grass,urn:ngsi-ld:WeatherObserved:003,urn:ngsi-ld:WeatherForecast:002,
+urn:ngsi-ld:AgriParcel:004,AgriParcel,East Pasture,maturing,urn:ngsi-ld:AgriCrop:Grass,,,
