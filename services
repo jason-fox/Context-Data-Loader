@@ -13,6 +13,7 @@ ORION2="http://orion2:1026/version"
 STELLIO="http://localhost:8080/actuator/health"
 CONTEXT="http://context/user-context.jsonld"
 CORE_CONTEXT="https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.8.jsonld"
+DATA_LOADER="http://tutorial:3000"
 
 dockerCmd="docker compose"
 if (( $# == 2 )); then
@@ -124,19 +125,13 @@ waitForIoTAgent () {
 
 loadData () {
 	waitForUserContext
-	docker run -v $(pwd)/import-data-dynamic:/import-data-dynamic \
-		--network fiware_default \
-		-e CONTEXT_BROKER=${CONTEXT_BROKER} \
-		-e TUTORIAL_DATA_MODELS_CONTEXT="http://context/user-context.jsonld" \
-		-e PIG_COUNT=${PIG_COUNT:-4} \
-		-e COW_COUNT=${COW_COUNT:-4} \
-		--entrypoint /bin/ash quay.io/curl/curl:${CURL_VERSION} /import-data-dynamic 
+
 	docker run -v $(pwd)/import-data-static:/import-data-static \
+	    -v $(pwd)/data/:/home/curl_user/data \
 		--network fiware_default \
 		-e CONTEXT_BROKER=${CONTEXT_BROKER} \
+		-e DATA_LOADER=${DATA_LOADER} \
 		-e TUTORIAL_DATA_MODELS_CONTEXT="http://context/user-context.jsonld" \
-		-e PIG_COUNT=${PIG_COUNT:-4} \
-		-e COW_COUNT=${COW_COUNT:-4} \
 		--entrypoint /bin/ash quay.io/curl/curl:${CURL_VERSION} /import-data-static
 
 
