@@ -89,5 +89,5 @@ urn:ngsi-ld:SoilSensor:humidity003,SoilSensor,Water Meadow Soil Sensor,sensor,""
 urn:ngsi-ld:SoilSensor:humidity004,SoilSensor,Paddock Soil Sensor,sensor,"""humidity""",json,0.6,,,,,,0.6,OK,urn:ngsi-ld:AgriParcel:006,urn:ngsi-ld:DeviceModel:SoilSensor
 urn:ngsi-ld:SoilSensor:humidity005,SoilSensor,North Pasture Soil Sensor,sensor,"""humidity""",json,0.6,,,,,,0.4,OK,urn:ngsi-ld:AgriParcel:003,urn:ngsi-ld:DeviceModel:SoilSensor
 urn:ngsi-ld:SoilSensor:humidity006,SoilSensor,East Pasture Soil Sensor,sensor,"""humidity""",json,0.6,,,,,,0.7,OK,urn:ngsi-ld:AgriParcel:004,urn:ngsi-ld:DeviceModel:SoilSensor
-urn:ngsi-ld:SoilSensor:humidity001,Water,Wheatfield Water Sprinkler,actuator,,json,,,,,,,0.7,OK,urn:ngsi-ld:AgriParcel:001,urn:ngsi-ld:DeviceModel:WaterSprinkler
-urn:ngsi-ld:SoilSensor:humidity002,Water,Cornfield Soil Water Sprinkler,actuator,,json,,,,,,,0.7,OK,urn:ngsi-ld:AgriParcel:002,urn:ngsi-ld:DeviceModel:WaterSprinkler
+urn:ngsi-ld:Water:water001,Water,Wheatfield Water Sprinkler,actuator,,json,,,,,,,0.7,OK,urn:ngsi-ld:AgriParcel:001,urn:ngsi-ld:DeviceModel:WaterSprinkler
+urn:ngsi-ld:Water:water002,Water,Cornfield Soil Water Sprinkler,actuator,,json,,,,,,,0.7,OK,urn:ngsi-ld:AgriParcel:002,urn:ngsi-ld:DeviceModel:WaterSprinkler
