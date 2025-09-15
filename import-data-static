@@ -35,8 +35,8 @@ echo -e "\n\nCreating weather observations readings ... \n"
 curl -F "file=@./data/weather.csv" http://tutorial:3000/csv/Weather
 
 
-echo -e "\n\Initialising devices readings ... \n"
-curl -s -o /dev/null -X POST --location 'http://'"${IOT_DEVICES}"'/' \
+echo -e "\nInitialising devices readings ... \n"
+curl -s -o /dev/null -iX PUT --location ''"${IOT_DEVICES}"'/devices' \
 -H 'Content-Type: application/json' \
 -d '{
   "cow001": "d|AT REST|bpm|51|gps|13.3497|52.5113",
